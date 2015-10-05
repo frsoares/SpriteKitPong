@@ -8,23 +8,33 @@
 
 import SpriteKit
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var moveableNode : SKNode?
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
         
-        
+        // Objects to be detected need to have a non-zero contactBitMask
+        self.physicsWorld.contactDelegate = self
         
         guard let ballNode = self.childNodeWithName("SKNode_ball") else {
             return
         }
         
+        
         ballNode.physicsBody?.applyImpulse(CGVector(dx: 20.0, dy: 0.0))
         
         
         
+    }
+    
+    func didBeginContact(contact: SKPhysicsContact) {
+        print("Contact started between \(contact.bodyA) and \(contact.bodyB)")
+    }
+    
+    func didEndContact(contact: SKPhysicsContact) {
+        print("Contact ended between \(contact.bodyA) and \(contact.bodyB)")
     }
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
