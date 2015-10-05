@@ -32,7 +32,7 @@ class GameScene: SKScene {
             }
             
             if let location = loc {
-                node.position = location
+                node.position = CGPoint(x: node.position.x, y: location.y)
             }
             
         }
