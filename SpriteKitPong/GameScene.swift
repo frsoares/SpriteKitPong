@@ -14,6 +14,17 @@ class GameScene: SKScene {
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
+        
+        
+        
+        guard let ballNode = self.childNodeWithName("SKNode_ball") else {
+            return
+        }
+        
+        ballNode.physicsBody?.applyImpulse(CGVector(dx: 20.0, dy: 0.0))
+        
+        
+        
     }
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -47,6 +58,8 @@ class GameScene: SKScene {
 //            }
 //            
 //        }
+        
+        
         
         self.moveableNode = nil
         
