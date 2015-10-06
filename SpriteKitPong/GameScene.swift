@@ -29,6 +29,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.ballNode = ballNode
         
+        self.physicsBody = SKPhysicsBody(edgeLoopFromRect: self.frame)
+        
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
