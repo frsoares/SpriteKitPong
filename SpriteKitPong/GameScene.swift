@@ -12,6 +12,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var moveableNode : SKNode?
     
+    var ballNode : SKNode!
+    
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
         
@@ -25,7 +27,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         ballNode.physicsBody?.applyImpulse(CGVector(dx: 20.0, dy: 0.0))
         
-        
+        self.ballNode = ballNode
         
     }
     
@@ -106,7 +108,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     print("there's self")
                 }
                 else{
-                    moveableNode=node
+                    if node != ballNode {
+                        moveableNode=node
+                    }
                 }
             }
             
