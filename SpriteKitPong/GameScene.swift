@@ -14,13 +14,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var ballNode : SKNode!
     
-    override func didMoveToView(view: SKView) {
+    override func didMove(to view: SKView) {
         /* Setup your scene here */
         
         // Objects to be detected need to have a non-zero contactBitMask
         self.physicsWorld.contactDelegate = self
         
-        guard let ballNode = self.childNodeWithName("SKNode_ball") else {
+        guard let ballNode = self.childNode(withName: "SKNode_ball") else {
             return
         }
         
@@ -29,7 +29,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.ballNode = ballNode
         
-        self.physicsBody = SKPhysicsBody(edgeLoopFromRect: self.frame)
+        self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
         
     }
     
@@ -41,13 +41,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         print("Contact ended between \(contact.bodyA) and \(contact.bodyB)")
     }
     
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let node = moveableNode {
             
             var loc : CGPoint? = nil
             
             for touch in touches {
-                loc = touch.locationInNode(self)
+                loc = touch.location(in: self)
             }
             
             if let location = loc {
@@ -57,53 +57,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-    
-//        if let node = moveableNode {
-//            
-//            var loc : CGPoint? = nil
-//            
-//            for touch in touches {
-//                loc = touch.locationInNode(self)
-//            }
-//            
-//            if let location = loc {
-//                node.position = location
-//            }
-//            
-//        }
-        
-        
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         self.moveableNode = nil
         
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
        /* Called when a touch begins */
-        
-//        for touch in touches {
-//            let location = touch.locationInNode(self)
-//            
-//            let sprite = SKSpriteNode(imageNamed:"Spaceship")
-//            
-//            sprite.xScale = 0.5
-//            sprite.yScale = 0.5
-//            sprite.position = location
-//            
-//            let action = SKAction.rotateByAngle(CGFloat(M_PI), duration:1)
-//            
-//            sprite.runAction(SKAction.repeatActionForever(action))
-//            
-//            self.addChild(sprite)
-//        }
         
         for touch in touches {
             
-            let nod = touch.locationInNode(self)
+            let nod = touch.location(in: self)
             
             
-            let nodes = nodesAtPoint(nod)
+            let nodes = self.nodes(at: nod)
             
             for node in nodes {
                 if node == self{
@@ -122,7 +90,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
    
-    override func update(currentTime: CFTimeInterval) {
+    override func update(_ currentTime: TimeInterval) {
         /* Called before each frame is rendered */
     }
 }
